@@ -2,12 +2,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Row } from 'antd';
 import { searchStateByKey } from '../../common/common-methods';
+import { isEmpty } from '../../common/helper';
 import http from '../../common/httpProvider/httpProvider';
 import Loader from '../../common/loader/ant-loader';
 import Card from '../custom-components/card';
 import DistrictWise from './district-wise';
 import Header from '../templates/Header';
 import Search from '../custom-components/serach-box';
+import EmptyState from '../custom-components/empty-state';
 import './styles.scss';
 
 export default function() {
@@ -52,6 +54,7 @@ export default function() {
         const searchedData = searchStateByKey(backupCovidData.current, value);
         setCovidCases(searchedData);
     };
+
     // render window
     const getContent = () => {
         switch (window) {
@@ -60,9 +63,13 @@ export default function() {
                     <>
                         <Search placeholder="Search By State" keyword={keyword} onSearch={onSearch} />
                         <Row justify="space-around">
-                            {Object.keys(covidCases).map(key => (
-                                <Card key={key} stateKey={key} data={covidCases} onClick={handleCardClick} />
-                            ))}
+                            {!isEmpty(covidCases) ? (
+                                Object.keys(covidCases).map(key => (
+                                    <Card key={key} stateKey={key} data={covidCases} onClick={handleCardClick} />
+                                ))
+                            ) : (
+                                <EmptyState keyword={keyword} />
+                            )}
                         </Row>
                     </>
                 );
@@ -73,12 +80,10 @@ export default function() {
         }
     };
 
-    return !loading ? (
+    return (
         <>
             <Header />
-            {getContent()}
+            {!loading ? getContent() : <Loader />}
         </>
-    ) : (
-        <Loader />
     );
 }
