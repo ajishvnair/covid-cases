@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.css';
+import AppRoute from './common/route/appRoute';
 
 function App() {
-    return <>From covide cases</>;
+    return <AppRoute />;
 }
 
 export default App;
