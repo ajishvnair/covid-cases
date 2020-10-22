@@ -55,3 +55,11 @@ export const searchStateByKey = (data, keyword) => {
     });
     return newObject;
 };
+
+export const searchDistrictByKey = (data, keyword) => {
+    const alternateKeyword = keyword.charAt(0).toUpperCase() + keyword.slice(1);
+    // filter by keyword
+    const newArray = data.filter(({ title }) => title.includes(keyword) || title.includes(alternateKeyword));
+
+    return [...newArray];
+};
