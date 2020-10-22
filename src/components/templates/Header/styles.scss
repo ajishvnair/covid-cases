@@ -1,0 +1,23 @@
+.covid-cases__header {
+    height: 200px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #544a7d; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #544a7d, #ffd452); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+        to right,
+        #544a7d,
+        #ffd452
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    margin-bottom: 20px;
+
+    .title {
+        font-size: 48px;
+        color: white;
+        font-weight: bold;
+    }
+}

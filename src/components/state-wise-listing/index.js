@@ -5,6 +5,7 @@ import http from '../../common/httpProvider/httpProvider';
 import Loader from '../../common/loader/ant-loader';
 import Card from '../custom-components/card';
 import DistrictWise from './district-wise';
+import Header from '../templates/Header';
 import './styles.scss';
 
 export default function() {
@@ -55,5 +56,12 @@ export default function() {
         }
     };
 
-    return !loading ? getContent() : <Loader />;
+    return !loading ? (
+        <>
+            <Header />
+            {getContent()}
+        </>
+    ) : (
+        <Loader />
+    );
 }
