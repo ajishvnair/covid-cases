@@ -24,7 +24,7 @@ export default function() {
     // search text
     const [keyword, setKeyword] = useState('');
     // backup covid data
-    const backupCovidData = useRef(null);
+    const backupCovidData = useRef({});
 
     useEffect(() => {
         // fetch covid details

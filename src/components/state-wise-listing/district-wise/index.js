@@ -17,7 +17,7 @@ export default function({ currentState, onBack, covidCases }) {
     // convert object to array
     const districtsArray = convertStateObjectToArray(districtData);
 
-    const backupedDistrictData = useRef(null);
+    const backupedDistrictData = useRef([]);
 
     useEffect(() => {
         setDistrictState(districtsArray);
