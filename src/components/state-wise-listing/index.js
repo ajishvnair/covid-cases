@@ -49,7 +49,7 @@ export default function() {
                     </Row>
                 );
             case 'district-wise':
-                return <DistrictWise currentState={currentState} onBack={toggleBack} />;
+                return <DistrictWise currentState={currentState} onBack={toggleBack} covidCases={covidCases} />;
             default:
                 break;
         }

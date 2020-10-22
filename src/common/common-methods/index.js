@@ -27,3 +27,18 @@ export const calculateTotalCasesStateWise = (countryData, state) => {
         totalRecovered
     };
 };
+
+export const convertStateObjectToArray = districtWiseObject => {
+    // loop thr' each keys
+    const arrayData = Object.keys(districtWiseObject).map(district => {
+        const { confirmed, deceased, recovered } = districtWiseObject[district];
+        return {
+            title: district,
+            confirmed,
+            deceased,
+            recovered
+        };
+    });
+
+    return [...arrayData];
+};

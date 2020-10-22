@@ -16,7 +16,7 @@ export default function({ data, stateKey, onClick }) {
                     Total Confirmed: <Tag color="red">{totalConfirmed}</Tag>
                 </p>
                 <p>
-                    Total Diseased: <Tag>{totalDeseased}</Tag>
+                    Total Deseased: <Tag>{totalDeseased}</Tag>
                 </p>
                 <p>
                     Total Recovered: <Tag color="green">{totalRecovered}</Tag>
