@@ -6,10 +6,10 @@ import './styles.scss';
 
 const { Title } = Typography;
 
-export default function({ data, stateKey }) {
+export default function({ data, stateKey, onClick }) {
     const { totalConfirmed, totalDeseased, totalRecovered } = calculateTotalCasesStateWise(data, stateKey);
     return (
-        <Col className="covid__ant-column">
+        <Col className="covid__ant-column" onClick={() => onClick(stateKey)}>
             <div>
                 <Title level={4}>{stateKey}</Title>
                 <p>

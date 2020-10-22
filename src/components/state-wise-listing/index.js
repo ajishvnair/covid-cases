@@ -4,6 +4,7 @@ import { Row } from 'antd';
 import http from '../../common/httpProvider/httpProvider';
 import Loader from '../../common/loader/ant-loader';
 import Card from '../custom-components/card';
+import DistrictWise from './district-wise';
 import './styles.scss';
 
 export default function() {
@@ -11,6 +12,10 @@ export default function() {
     const [covidCases, setCovidCases] = useState([]);
     // to show loader
     const [loading, setLoading] = useState(true);
+    // to toggle between window
+    const [window, setWindow] = useState('state-wise');
+    // to get seletected state
+    const [currentState, setCurrentState] = useState(null);
 
     useEffect(() => {
         // fetch covid details
@@ -24,13 +29,31 @@ export default function() {
             });
     }, []);
 
-    return !loading ? (
-        <Row justify="space-around">
-            {Object.keys(covidCases).map(key => (
-                <Card key={key} stateKey={key} data={covidCases} />
-            ))}
-        </Row>
-    ) : (
-        <Loader />
-    );
+    const toggleBack = () => {
+        setWindow('state-wise');
+    };
+    // handle each card click
+    const handleCardClick = state => {
+        setCurrentState(state);
+        setWindow('district-wise');
+    };
+    // render window
+    const getContent = () => {
+        switch (window) {
+            case 'state-wise':
+                return (
+                    <Row justify="space-around">
+                        {Object.keys(covidCases).map(key => (
+                            <Card key={key} stateKey={key} data={covidCases} onClick={handleCardClick} />
+                        ))}
+                    </Row>
+                );
+            case 'district-wise':
+                return <DistrictWise currentState={currentState} onBack={toggleBack} />;
+            default:
+                break;
+        }
+    };
+
+    return !loading ? getContent() : <Loader />;
 }
