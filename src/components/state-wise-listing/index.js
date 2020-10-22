@@ -1,8 +1,9 @@
 /* eslint-disable handle-callback-err */
 import React, { useState, useEffect } from 'react';
+import { Row } from 'antd';
 import http from '../../common/httpProvider/httpProvider';
 import Loader from '../../common/loader/ant-loader';
-import { calculateTotalCasesStateWise } from '../../common/common-methods';
+import Card from '../custom-components/card';
 
 export default function() {
     // for string covid case details
@@ -21,10 +22,13 @@ export default function() {
                 setLoading(false);
             });
     }, []);
+
     return !loading ? (
-        Object.keys(covidCases).map(key => (
-            <p key={key}>{`${key} - ${JSON.stringify(calculateTotalCasesStateWise(covidCases, key))}`}</p>
-        ))
+        <Row justify="space-between">
+            {Object.keys(covidCases).map(key => (
+                <Card key={key} stateKey={key} data={covidCases} />
+            ))}
+        </Row>
     ) : (
         <Loader />
     );
