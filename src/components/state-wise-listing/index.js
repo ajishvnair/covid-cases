@@ -1,11 +1,13 @@
 /* eslint-disable handle-callback-err */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Row } from 'antd';
+import { searchStateByKey } from '../../common/common-methods';
 import http from '../../common/httpProvider/httpProvider';
 import Loader from '../../common/loader/ant-loader';
 import Card from '../custom-components/card';
 import DistrictWise from './district-wise';
 import Header from '../templates/Header';
+import Search from '../custom-components/serach-box';
 import './styles.scss';
 
 export default function() {
@@ -17,6 +19,10 @@ export default function() {
     const [window, setWindow] = useState('state-wise');
     // to get seletected state
     const [currentState, setCurrentState] = useState(null);
+    // search text
+    const [keyword, setKeyword] = useState('');
+    // backup covid data
+    const backupCovidData = useRef(null);
 
     useEffect(() => {
         // fetch covid details
@@ -24,6 +30,7 @@ export default function() {
             .then(res => {
                 setCovidCases(res.data);
                 setLoading(false);
+                backupCovidData.current = res.data;
             })
             .catch(err => {
                 setLoading(false);
@@ -38,16 +45,26 @@ export default function() {
         setCurrentState(state);
         setWindow('district-wise');
     };
+
+    // handle search
+    const onSearch = value => {
+        setKeyword(value);
+        const searchedData = searchStateByKey(backupCovidData.current, value);
+        setCovidCases(searchedData);
+    };
     // render window
     const getContent = () => {
         switch (window) {
             case 'state-wise':
                 return (
-                    <Row justify="space-around">
-                        {Object.keys(covidCases).map(key => (
-                            <Card key={key} stateKey={key} data={covidCases} onClick={handleCardClick} />
-                        ))}
-                    </Row>
+                    <>
+                        <Search placeholder="Search By State" keyword={keyword} onSearch={onSearch} />
+                        <Row justify="space-around">
+                            {Object.keys(covidCases).map(key => (
+                                <Card key={key} stateKey={key} data={covidCases} onClick={handleCardClick} />
+                            ))}
+                        </Row>
+                    </>
                 );
             case 'district-wise':
                 return <DistrictWise currentState={currentState} onBack={toggleBack} covidCases={covidCases} />;

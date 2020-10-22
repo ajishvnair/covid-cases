@@ -42,3 +42,16 @@ export const convertStateObjectToArray = districtWiseObject => {
 
     return [...arrayData];
 };
+
+export const searchStateByKey = (data, keyword) => {
+    const newObject = {};
+    const alternateKeyword = keyword.charAt(0).toUpperCase() + keyword.slice(1);
+    // loop thr' object
+    Object.keys(data).map(state => {
+        // if keyword includes then add data to new object
+        if (state.includes(keyword) || state.includes(alternateKeyword)) {
+            newObject[state] = data[state];
+        }
+    });
+    return newObject;
+};
