@@ -4,6 +4,7 @@ import { Row } from 'antd';
 import http from '../../common/httpProvider/httpProvider';
 import Loader from '../../common/loader/ant-loader';
 import Card from '../custom-components/card';
+import './styles.scss';
 
 export default function() {
     // for string covid case details
@@ -24,7 +25,7 @@ export default function() {
     }, []);
 
     return !loading ? (
-        <Row justify="space-between">
+        <Row justify="space-around">
             {Object.keys(covidCases).map(key => (
                 <Card key={key} stateKey={key} data={covidCases} />
             ))}

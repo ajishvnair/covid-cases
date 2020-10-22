@@ -1,17 +1,26 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { Col } from 'antd';
+import { Col, Typography, Tag } from 'antd';
 import { calculateTotalCasesStateWise } from '../../../common/common-methods';
+import './styles.scss';
+
+const { Title } = Typography;
 
 export default function({ data, stateKey }) {
     const { totalConfirmed, totalDeseased, totalRecovered } = calculateTotalCasesStateWise(data, stateKey);
     return (
-        <Col span={5}>
+        <Col className="covid__ant-column">
             <div>
-                <p>{stateKey}</p>
-                <p>Total Confirmed: {totalConfirmed}</p>
-                <p>Total Diseased: {totalDeseased}</p>
-                <p>Total Recovered: {totalRecovered}</p>
+                <Title level={4}>{stateKey}</Title>
+                <p>
+                    Total Confirmed: <Tag color="red">{totalConfirmed}</Tag>
+                </p>
+                <p>
+                    Total Diseased: <Tag>{totalDeseased}</Tag>
+                </p>
+                <p>
+                    Total Recovered: <Tag color="green">{totalRecovered}</Tag>
+                </p>
             </div>
         </Col>
     );
