@@ -41,6 +41,8 @@ export default function() {
 
     const toggleBack = () => {
         setWindow('state-wise');
+        setKeyword('');
+        setCovidCases(backupCovidData.current);
     };
     // handle each card click
     const handleCardClick = state => {

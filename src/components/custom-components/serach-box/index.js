@@ -11,7 +11,13 @@ export default function({ keyword, onSearch, placeholder }) {
     };
     return (
         <Row className="covid-case__search">
-            <Search className="search-box" placeholder={placeholder} value={keyword} onChange={handleSearch} />
+            <Search
+                className="search-box"
+                placeholder={placeholder}
+                value={keyword}
+                onChange={handleSearch}
+                size="large"
+            />
         </Row>
     );
 }
